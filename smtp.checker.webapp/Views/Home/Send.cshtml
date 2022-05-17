@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Send";
+}
+@model smtp.checker.webapp.Models.ResultSendEMail
+@if (Model.Status)
+{
+    <div class="alert alert-success" role="alert">
+        @Model.StatusMessage
+    </div>
+}
+else
+{
+    <div class="alert alert-danger" role="alert">
+        @Model.StatusMessage
+    </div>
+}
+
