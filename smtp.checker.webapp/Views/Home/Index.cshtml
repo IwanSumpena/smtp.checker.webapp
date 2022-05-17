@@ -99,6 +99,7 @@
                     <th>Host</th>
                     <th>Port</th>
                     <th>Status</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -114,6 +115,9 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Status)
                     </td>
+                    <td>
+                        <button class="btn btn-primary" onclick="GetData(@item.Id)">Get</button>
+                    </td>
                     
                 </tr>
                 }
@@ -123,3 +127,40 @@
     </div>
 
 </div>
+
+<script type="text/javascript">
+    function GetData(id){
+        $.ajax({
+        url: '@Url.Action("GetData")',
+        dataType: "json",
+        type: "GET", 
+        data: { id: id  },
+        success: function (data) {
+            // data is your result from controller
+            console.log(data);
+
+            $("#Host").val(data.host);
+            $("#Port").val(data.port);
+            $("#Username").val(data.username);
+            $("#Password").val(data.password);
+            $("#EmailFrom").val(data.emailFrom);
+            $("#EmailTo").val(data.emailTo);
+            if(data.isBodyHtml){
+                $("#IsBodyHtml").prop('checked', true);
+            }else{
+                $("#IsBodyHtml").prop('checked', false);
+            }
+
+            if(data.enableSsl){
+                $("#EnableSsl").prop('checked', true);
+            }else{
+                $("#EnableSsl").prop('checked', false);
+            }
+        },
+        error: function (xhr) {
+            alert('error');
+        }
+    });
+    }
+    
+</script>

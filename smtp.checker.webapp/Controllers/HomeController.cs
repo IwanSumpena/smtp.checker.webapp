@@ -85,5 +85,11 @@ namespace smtp.checker.webapp.Controllers
                 return View(result);
             }
         }
+
+        public JsonResult GetData(int id)
+        {
+            var data= _context.SendEmailLogs.FirstOrDefault(p => p.Id == id);
+            return new JsonResult(data);
+        }
     }
 }
